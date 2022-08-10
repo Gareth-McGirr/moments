@@ -38,10 +38,10 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-        await axios.post("/dj-rest-auth/registration/", signUpData);
-        history.push("/signin");
+            await axios.post("/dj-rest-auth/registration/", signUpData);
+            history.push("/signin");
         } catch (err) {
-        setErrors(err.response?.data);
+            setErrors(err.response?.data);
         }
     };
 
@@ -64,9 +64,9 @@ const SignUpForm = () => {
                 />
                 </Form.Group>
                 {errors.username?.map((message, idx) => (
-                <Alert variant="warning" key={idx}>
-                    {message}
-                </Alert>
+                    <Alert variant="warning" key={idx}>
+                        {message}
+                    </Alert>
                 ))}
 
                 <Form.Group controlId="password1">
