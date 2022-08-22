@@ -61,11 +61,16 @@ const Post = (props) => {
                 ) : (
                     <OverlayTrigger 
                         placement="top" 
-                        overlay={<Tooltip>You can't like your own post!</Tooltip>}>
+                        overlay={<Tooltip>Log in to like posts</Tooltip>}>
                         <i className='far fa-heart' 
                     />    
                     </OverlayTrigger>
                 )}
+                {likes_count}
+                <Link to={`/posts/${id}`}>
+                    <i className='far fa-comments' />
+                </Link>
+                {comments_count}
             </div>
         </Card.Body>
         
