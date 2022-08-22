@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import styles from "../../styles/Post.module.css";
-import { Card, Media } from "react-bootstrap";
+import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 const Post = (props) => {
@@ -17,6 +17,7 @@ const Post = (props) => {
         content,
         image,
         updated_at,
+        postPage,
     } = props;
 
     const currentUser = useCurrentUser();
@@ -29,8 +30,45 @@ const Post = (props) => {
                     <Avatar src={profile_image} height={55} />
                     {owner}
                 </Link>
+                <div className='d-flex align-items-center'>
+                    <span>{updated_at}</span>
+                    {is_owner && postPage && "..."}
+                </div>
             </Media>
         </Card.Body>
+        <Link to={`/posts/${id}`}>
+            <Card.Img src={image} alt={title} />
+        </Link>
+        <Card.Body>
+            {title && <Card.Title className='text-center'>{title}</Card.Title>}
+            {content && <Card.Text>{content}</Card.Text>}
+            <div className={styles.PostBar}>
+                {is_owner ? (
+                    <OverlayTrigger 
+                        placement="top" 
+                        overlay={<Tooltip>You can't like your own post!</Tooltip>}>
+                        <i className='far fa-heart' 
+                    />    
+                    </OverlayTrigger>
+                ) : like_id ? (
+                    <span onClick={()=>{}}>
+                        <i className={`fas fa-heart ${styles.Heart}`} />
+                    </span>
+                ) : currentUser ? (
+                    <span onClick={()=>{}}>
+                        <i className={`far fa-heart ${styles.HeartOutline}`} />
+                    </span>
+                ) : (
+                    <OverlayTrigger 
+                        placement="top" 
+                        overlay={<Tooltip>You can't like your own post!</Tooltip>}>
+                        <i className='far fa-heart' 
+                    />    
+                    </OverlayTrigger>
+                )}
+            </div>
+        </Card.Body>
+        
     </Card>
 }
 
