@@ -15,6 +15,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+import { Button, InputGroup } from "react-bootstrap";
 
 function PostsPage({ message, filter = "" }) {
   const [posts, setPosts] = useState({ results: [] });
@@ -22,6 +23,10 @@ function PostsPage({ message, filter = "" }) {
   const { pathname } = useLocation();
 
   const [query, setQuery] = useState("");
+
+  const handleClick = (val) => {
+    setQuery("");
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -49,7 +54,7 @@ function PostsPage({ message, filter = "" }) {
         <p>Popular profiles mobile</p>
 
         <i className={`fas fa-search ${styles.SearchIcon}`} />
-        <Form
+        <InputGroup
           className={styles.SearchBar}
           onSubmit={(event) => event.preventDefault()}
         >
@@ -60,7 +65,8 @@ function PostsPage({ message, filter = "" }) {
             className="mr-sm-2"
             placeholder="Search posts"
           />
-        </Form>
+          <Button onClick={handleClick}>Clear</Button>
+        </InputGroup>
 
         {hasLoaded ? (
           <>
