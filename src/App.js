@@ -11,6 +11,7 @@ import PostsPage from "./pages/posts/PostsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostEditForm from "./pages/posts/PostEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
+import UsernameForm from "./pages/profiles/UsernameForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -32,7 +33,7 @@ function App() {
             exact
             path="/feed"
             render={() => (
-              <PostsPage 
+              <PostsPage
                 message="No results found. Adjust the search keyword or follow a user."
                 filter={`owner__followed__owner__profile=${profile_id}&`}
               />
@@ -42,8 +43,8 @@ function App() {
             exact
             path="/liked"
             render={() => (
-              <PostsPage 
-                message="No results found. Adjust the search keyword or like a post" 
+              <PostsPage
+                message="No results found. Adjust the search keyword or like a post"
                 filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
               />
             )}
@@ -54,6 +55,11 @@ function App() {
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
           <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+          <Route
+            exact
+            path="/profiles/:id/edit/username"
+            render={() => <UsernameForm />}
+          />
           <Route render={() => <p>Page not found!</p>} />
         </Switch>
       </Container>
