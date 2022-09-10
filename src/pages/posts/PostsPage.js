@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -25,6 +27,8 @@ function PostsPage({ message, filter = "" }) {
 
   const [query, setQuery] = useState("");
 
+  const currentUser = useCurrentUser();
+
   const handleClick = (val) => {
     setQuery("");
   };
@@ -47,7 +51,7 @@ function PostsPage({ message, filter = "" }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname]);
+  }, [filter, query, pathname, currentUser]);
 
   return (
     <Row className="h-100">
